@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: var(--base);
+}
+
+:root{
+  /* Primary */
+  --lime: hsl(61, 70%, 52%);
+  --red: hsl(4, 69%, 50%);
+
+  /* Neutral */
+  --white: hsl(0, 0%, 100%);
+  --slate-100: hsl(202, 86%, 94%);
+  --slate-300: hsl(203, 41%, 72%);
+  --slate-500: hsl(200, 26%, 54%);
+  --slate-700: hsl(200, 24%, 40%);
+  --slate-900: hsl(202, 55%, 16%);
+
+  /* Font */
+  --base: 500;
+  --bold: 700;
+}
+
+/* Removes <input type='number'> default up and down arrow */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.input--error{
+  background-color: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+.input_label--error{
+  display: block;
+  color: var(--red);
+  font-weight: var(--base);
+}
