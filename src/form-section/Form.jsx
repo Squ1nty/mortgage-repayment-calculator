@@ -1,4 +1,4 @@
-import '../base-files/index.css';
+import '../index.css';
 import { useState, useEffect, useRef, use } from 'react';
 
 function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mortgageType, setMortgageAmount, setMortgageTerm, setInterestRate, setMortgageType }) {
@@ -138,10 +138,10 @@ function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mor
   }
 
   return(
-    <form onSubmit={handleSubmit}>
-      <div> {/* Heading Section */}
-        <h1>Mortgage Calculator</h1>
-        <button className='p-16 cursor-pointer' type='reset'>Clear All</button>
+    <form onSubmit={handleSubmit} className='flex flex-col gap-6 px-6 py-8'>
+      <div className='flex flex-col items-start gap-2'> {/* Heading Section */}
+        <h1 className='text-2xl font-bold text-[var(--slate-900)]'>Mortgage Calculator</h1>
+        <button className='text-[var(--slate-700)] underline underline-offset-2 cursor-pointer' type='reset'>Clear All</button>
       </div>
       <div> {/* Mortgage Amount */}
         <label htmlFor='mortgageAmountInput'>Mortgage Amount</label>
