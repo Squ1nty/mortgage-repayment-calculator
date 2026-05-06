@@ -1,4 +1,7 @@
-function Display({ isFormValid }){
+import EmptyDisplay from "./EmptyDisplay";
+
+function Display({ isFormValid, mortgageAmount, mortgageTerm, interestRate, mortgageType }) {
+
   return(
     <>
       { 
@@ -14,29 +17,33 @@ function Display({ isFormValid }){
             </p>
           </div>
           <div>
-            <div>
-              <p>Your monthly repayments</p>
-              <p>{/* Insert var for monthly repayment here */}</p>
-            </div>
-            <hr></hr>
-            <div>
-              <p>Total you'll repay over the term</p>
-              <p>{/* Insert var for total paid over term */}</p>
-            </div>
+            {(mortgageType === "repayment"
+             ? 
+              <>
+                <div>
+                  <p>Your monthly repayments</p>
+                  <p>{(mortgageAmount * (interestRate / 100 / 12) / (1 - Math.pow(1 + interestRate / 100 / 12, -mortgageTerm * 12))).toFixed(2)}</p>
+                </div>
+                <hr></hr>
+                <div>
+                  <p>Total you'll repay over the term</p>
+                  <p>{(mortgageAmount * (interestRate / 100 / 12) / (1 - Math.pow(1 + interestRate / 100 / 12, -mortgageTerm * 12)) * mortgageTerm * 12).toFixed(2)}</p>
+                </div>
+              </>
+            : 
+              <>
+                <div>
+                  <p>Total interest accumulated over mortgage term</p>
+                  <p>{(mortgageAmount * (interestRate / 100 / 12) * mortgageTerm * 12 - mortgageAmount).toFixed(2)}</p>
+                </div>
+              </>
+            )}
+
           </div>
         </div> 
         : 
         // Empty/Default state for calculator's display
-        <div className="grid place-items-center bg-[var(--slate-900)] text-center">
-          <img src='/assets/images/illustration-empty.svg'></img>
-          <div>
-            <p className="text-[var(--slate-100)]">Results shown here</p>
-            <p className="text-[var(--slate-300)]">
-              Complete the form and click 'calculate repayments' to 
-              see what your monthly repayments would be.
-            </p>
-          </div>
-        </div>
+        <EmptyDisplay />
       }
     </>
   );

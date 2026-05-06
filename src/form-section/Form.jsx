@@ -1,13 +1,8 @@
 import '../base-files/index.css';
 import { useState, useEffect, useRef, use } from 'react';
 
-function Form(){
-  let [ mortgageAmount, setMortgageAmount ] = useState(0);
-  let [ mortgageTerm, setMortgageTerm ] = useState(0);
-  let [ interestRate, setInterestRate ] = useState(0);
-  let [ mortgageType, setMortgageType ] = useState("");
-  let [ hasRunOnce, setInitialRun ] = useState(false);
-  let [monthlyPayment, setMonthlyPayment] = useState(0);
+function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mortgageType, setMortgageAmount, setMortgageTerm, setInterestRate, setMortgageType }) {
+  let [hasRunOnce, setInitialRun ] = useState(false);
   const mortgageAmountInput = useRef(null);
   const mortgageAmountErrorLabelRef = useRef(null);
   const mortgageTermInput = useRef(null);
@@ -88,12 +83,6 @@ function Form(){
       interestRateErrorLabelRef.current.textContent = "Interest rate is invalid";
       interestRateErrorLabelRef.current.removeAttribute("inert");
     }
-    else if(Number(interestRate % 1 !== 0) && hasRunOnce){
-      interestRateInput.current.parentNode.classList.add("input--error");
-      interestRateErrorLabelRef.current.classList.add("input_label--error");
-      interestRateErrorLabelRef.current.textContent = "Interest rate must be a whole number";
-      interestRateErrorLabelRef.current.removeAttribute("inert");
-    }
     else{
       interestRateInput.current.parentNode.classList.remove("input--error");
       interestRateErrorLabelRef.current.classList.remove("input_label--error");
@@ -136,15 +125,10 @@ function Form(){
     e.preventDefault();
 
     if(mortgageAmount && mortgageTerm && interestRate && mortgageType){
-      if(mortgageType === "repayment"){
-        monthlyPayment = (Number(mortgageAmount) * (Number(interestRate) / 100 / 12)) / (1 - (Math.pow(1 + (Number(interestRate) / 100 / 12), (-Number(mortgageTerm) * 12))));
-      }
-      else if(mortgageType === "interest"){
-        monthlyPayment = (Number(mortgageAmount) * (Number(interestRate) / 100)) / 12;
-      }
-      setMonthlyPayment(monthlyPayment);
+      setFormValidity(true);
     }
     else{
+      setFormValidity(false);
       handleMortgageAmount();
       handleMortgageTerm();
       handleInterestRate();
@@ -178,7 +162,7 @@ function Form(){
       <div> {/* Interest Rate */}
         <label htmlFor='interestRateInput'>Interest Rate</label>
         <div className='flex gap-2 border-2'>
-          <input id='interestRateInput' ref={interestRateInput} className='w-full' type='number' onChange={(e) => setInterestRate(e.target.value)}></input>
+          <input id='interestRateInput' ref={interestRateInput} className='w-full' type='float' onChange={(e) => setInterestRate(e.target.value)}></input>
           <p>%</p>
         </div>
         <label htmlFor='interestRateInput' ref={interestRateErrorLabelRef} className='hidden text-[var(--red)]' inert></label>
