@@ -63,7 +63,7 @@ function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mor
       mortgageTermErrorLabelRef.current.textContent = "Mortgage Term is invalid";
       mortgageTermErrorLabelRef.current.removeAttribute("inert");
     }
-    else if(Number(interestRate % 1 !== 0) && hasRunOnce){
+    else if(Number(mortgageTerm % 1 !== 0) && hasRunOnce){
       mortgageTermInput.current.parentNode.classList.add("input--error");
       mortgageTermErrorLabelRef.current.classList.add("input_label--error");
       mortgageTermErrorLabelRef.current.textContent = "Mortgage Term must be a whole number";
@@ -150,8 +150,8 @@ function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mor
   }
 
   return(
-    <form onSubmit={handleSubmit} className='flex flex-col gap-6 px-6 py-8'>
-      <div className='flex flex-col items-start gap-2'> {/* Heading Section */}
+    <form onSubmit={handleSubmit} className='flex flex-col gap-6 px-6 py-8 lg:justify-center xl:px-10 xl:py-12'>
+      <div className='flex flex-col items-start gap-2 xl:flex-row xl:items-center xl:justify-between'> {/* Heading Section */}
         <h1 className='text-2xl font-bold text-[var(--slate-900)]'>Mortgage Calculator</h1>
         <button className='text-[var(--slate-700)] underline underline-offset-2 cursor-pointer' type='reset' onClick={handleReset}>
           Clear All
@@ -167,25 +167,27 @@ function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mor
         </div>
         <label htmlFor='mortgageAmountInput' ref={mortgageAmountErrorLabelRef} className='hidden text-[var(--red)]' inert></label>
       </div>
-      <div className='flex flex-col gap-2'> {/* Mortgage Term */}
-        <label className='text-[var(--slate-700)]' htmlFor='mortgageTermInput'>Mortgage Term</label>
-        <div className='w-full flex border border-[var(--slate-700)] rounded-md' ref={mortgageTermInput}>
-          <input className='w-full p-2 bg-white rounded-l-md' id='mortgageTermInput' type='number' onChange={(e) => setMortgageTerm(e.target.value)}></input>
-          <div className='flex bg-[var(--slate-100)] px-4 py-2 rounded-r-md text-[var(--slate-700)]'>
-            <p className='self-center justify-self-center font-bold text-lg'>years</p>
+      <div className='xl:flex xl:gap-4'>
+        <div className='flex flex-col gap-2'> {/* Mortgage Term */}
+          <label className='text-[var(--slate-700)]' htmlFor='mortgageTermInput'>Mortgage Term</label>
+          <div className='w-full flex border border-[var(--slate-700)] rounded-md' ref={mortgageTermInput}>
+            <input className='w-full p-2 bg-white rounded-l-md' id='mortgageTermInput' type='number' onChange={(e) => setMortgageTerm(e.target.value)}></input>
+            <div className='flex bg-[var(--slate-100)] px-4 py-2 rounded-r-md text-[var(--slate-700)]'>
+              <p className='self-center justify-self-center font-bold text-lg'>years</p>
+            </div>
           </div>
+          <label htmlFor='mortgageTermInput' ref={mortgageTermErrorLabelRef} className='hidden text-[var(--red)]' inert></label>
         </div>
-        <label htmlFor='mortgageTermInput' ref={mortgageTermErrorLabelRef} className='hidden text-[var(--red)]' inert></label>
-      </div>
-      <div className='flex flex-col gap-2'> {/* Interest Rate */}
-        <label className='text-[var(--slate-700)]' htmlFor='interestRateInput'>Interest Rate</label>
-        <div className='w-full flex border border-[var(--slate-700)] rounded-md' ref={interestRateInput}>
-          <input id='interestRateInput' className='w-full p-2 bg-white rounded-l-md' type='number' step='0.01' onChange={(e) => setInterestRate(e.target.value)}></input>
-          <div className='flex bg-[var(--slate-100)] px-4 py-2 rounded-r-md text-[var(--slate-700)]'>
-            <p className='self-center justify-self-center font-bold text-lg'>%</p>
+        <div className='flex flex-col gap-2'> {/* Interest Rate */}
+          <label className='text-[var(--slate-700)]' htmlFor='interestRateInput'>Interest Rate</label>
+          <div className='w-full flex border border-[var(--slate-700)] rounded-md' ref={interestRateInput}>
+            <input id='interestRateInput' className='w-full p-2 bg-white rounded-l-md' type='number' step='0.01' onChange={(e) => setInterestRate(e.target.value)}></input>
+            <div className='flex bg-[var(--slate-100)] px-4 py-2 rounded-r-md text-[var(--slate-700)]'>
+              <p className='self-center justify-self-center font-bold text-lg'>%</p>
+            </div>
           </div>
+          <label htmlFor='interestRateInput' ref={interestRateErrorLabelRef} className='hidden text-[var(--red)]' inert></label>
         </div>
-        <label htmlFor='interestRateInput' ref={interestRateErrorLabelRef} className='hidden text-[var(--red)]' inert></label>
       </div>
       <fieldset className='flex flex-col gap-2'> {/* Mortgage Type */}
         <legend className='mb-2 text-[var(--slate-700)]'>Mortgage Type</legend>
@@ -201,7 +203,7 @@ function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mor
         </div>
         <span ref={mortgageTypeErrorLabelRef} className='hidden text-[var(--red)]' inert></span>
       </fieldset>
-      <button className='flex justify-center items-center gap-3 w-full bg-[var(--lime)] hover:bg-[var(--lime)]/80 text-[var(--slate-900)] font-bold p-4 rounded-[30px] text-lg cursor-pointer' type='submit'>
+      <button className='flex justify-center items-center gap-3 w-full bg-[var(--lime)] hover:bg-[var(--lime)]/80 text-[var(--slate-900)] font-bold p-4 rounded-[30px] text-lg cursor-pointer xl:w-3/4 xl:px-6 xl:mt-2' type='submit'>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#133041" d="M18.75 2.25H5.25a1.5 1.5 0 0 0-1.5 1.5v16.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V3.75a1.5 1.5 0 0 0-1.5-1.5Zm-10.5 16.5a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 18.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 15a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 15Zm3.75 3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm1.5-5.25a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75V6a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 .75.75v3.75Z"/></svg>
         Calculate Repayments
       </button>
