@@ -3,13 +3,13 @@ import EmptyDisplay from "./EmptyDisplay";
 function Display({ isFormValid, mortgageAmount, mortgageTerm, interestRate, mortgageType }) {
 
   return(
-    <>
+    <div className='px-4 py-8 bg-[var(--slate-900)]'>
       { 
         isFormValid ? 
         // Valid state that displays results
-        <div>
-          <div>
-            <p className="text-[var(--slate-100)]">Your results</p>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
+            <p className="text-white text-2xl font-semibold">Your results</p>
             <p className="text-[var(--slate-300)]">
               Your results are shown below based on the information you 
               provided. To adjust the results, edit the form and click 
@@ -19,22 +19,26 @@ function Display({ isFormValid, mortgageAmount, mortgageTerm, interestRate, mort
           <div>
             {(mortgageType === "repayment"
              ? 
-              <>
-                <div>
-                  <p>Your monthly repayments</p>
-                  <p>{(mortgageAmount * (interestRate / 100 / 12) / (1 - Math.pow(1 + interestRate / 100 / 12, -mortgageTerm * 12))).toFixed(2)}</p>
+              <div className="bg-[var(--slate-900)] border-t-4 border-[var(--lime)] rounded-lg">
+                <div className='p-4 w-full h-full backdrop-brightness-[0.75] rounded-lg'>
+                  <div className='flex flex-col'>
+                    <p className='text-[var(--slate-300)]'>Your monthly repayments</p>
+                    <p className='text-4xl text-[var(--lime)] font-semibold py-4'>£{(mortgageAmount * (interestRate / 100 / 12) / (1 - Math.pow(1 + interestRate / 100 / 12, -mortgageTerm * 12))).toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                  </div>
+                  <hr className='border-[var(--slate-500)] border-t-[1px]'></hr>
+                  <div>
+                    <p className="pt-4 text-[var(--slate-300)]">Total you'll repay over the term</p>
+                    <p className="py-2 text-2xl font-semibold text-[var(--slate-100)]">£{(mortgageAmount * (interestRate / 100 / 12) / (1 - Math.pow(1 + interestRate / 100 / 12, -mortgageTerm * 12)) * mortgageTerm * 12).toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                  </div>
                 </div>
-                <hr></hr>
-                <div>
-                  <p>Total you'll repay over the term</p>
-                  <p>{(mortgageAmount * (interestRate / 100 / 12) / (1 - Math.pow(1 + interestRate / 100 / 12, -mortgageTerm * 12)) * mortgageTerm * 12).toFixed(2)}</p>
-                </div>
-              </>
+              </div>
             : 
               <>
-                <div>
-                  <p>Total interest accumulated over mortgage term</p>
-                  <p>{(mortgageAmount * (interestRate / 100 / 12) * mortgageTerm * 12 - mortgageAmount).toFixed(2)}</p>
+                <div className="bg-[var(--slate-900)]">
+                  <div className="p-4 backdrop-brightness-[0.75] rounded-lg">
+                    <p className="pt-2 text-[var(--slate-300)]">Total interest accumulated over mortgage term</p>
+                    <p className="py-2 text-2xl font-semibold text-[var(--slate-100)]">£{(mortgageAmount * (interestRate / 100 / 12) * mortgageTerm * 12 - mortgageAmount).toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                  </div>
                 </div>
               </>
             )}
@@ -45,7 +49,7 @@ function Display({ isFormValid, mortgageAmount, mortgageTerm, interestRate, mort
         // Empty/Default state for calculator's display
         <EmptyDisplay />
       }
-    </>
+    </div>
   );
 }
 

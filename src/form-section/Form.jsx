@@ -60,13 +60,13 @@ function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mor
     else if(mortgageTerm < 0 && hasRunOnce){
       mortgageTermInput.current.parentNode.classList.add("input--error");
       mortgageTermErrorLabelRef.current.classList.add("input_label--error");
-      mortgageTermErrorLabelRef.current.textContent = "Interest rate is invalid";
+      mortgageTermErrorLabelRef.current.textContent = "Mortgage Term is invalid";
       mortgageTermErrorLabelRef.current.removeAttribute("inert");
     }
     else if(Number(interestRate % 1 !== 0) && hasRunOnce){
       mortgageTermInput.current.parentNode.classList.add("input--error");
       mortgageTermErrorLabelRef.current.classList.add("input_label--error");
-      mortgageTermErrorLabelRef.current.textContent = "Interest rate must be a whole number";
+      mortgageTermErrorLabelRef.current.textContent = "Mortgage Term must be a whole number";
       mortgageTermErrorLabelRef.current.removeAttribute("inert");
     }
     else{
@@ -201,7 +201,7 @@ function Form({ setFormValidity, mortgageAmount, mortgageTerm, interestRate, mor
         </div>
         <span ref={mortgageTypeErrorLabelRef} className='hidden text-[var(--red)]' inert></span>
       </fieldset>
-      <button className='flex justify-center gap-3 w-full bg-[var(--lime)] hover:bg-[var(--lime)]/80 text-[var(--slate-900)] font-bold p-4 rounded-[30px] text-lg cursor-pointer' type='submit'>
+      <button className='flex justify-center items-center gap-3 w-full bg-[var(--lime)] hover:bg-[var(--lime)]/80 text-[var(--slate-900)] font-bold p-4 rounded-[30px] text-lg cursor-pointer' type='submit'>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#133041" d="M18.75 2.25H5.25a1.5 1.5 0 0 0-1.5 1.5v16.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V3.75a1.5 1.5 0 0 0-1.5-1.5Zm-10.5 16.5a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 18.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 15a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 15Zm3.75 3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm1.5-5.25a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75V6a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 .75.75v3.75Z"/></svg>
         Calculate Repayments
       </button>
